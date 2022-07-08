@@ -1,0 +1,158 @@
+.header {
+  .logo {
+    float: left;
+    width: 2rem;
+    img {
+      height: 2rem;
+    }
+  }
+  .trigger {
+    float: left;
+    color: var(--white);
+    margin-right: 1rem;
+    height: 4rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    svg {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.main-container {
+  display: flex;
+}
+
+.menu-left {
+  overflow: auto;
+  overflow-x: hidden;
+  height: calc(100vh - var(--header-height));
+  position: fixed;
+  left: 0;
+  top: var(--header-height);
+  bottom: 0;
+  width: var(--menu-width);
+}
+
+.main-content {
+  padding: var(--header-height) 0 0 0;
+  min-height: 100vh;
+  background: var(--light);
+}
+
+.side-menu-left {
+  z-index: 100;
+}
+
+.section {
+  padding: 0.75rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  + section {
+    margin-top: 2rem;
+  }
+}
+
+//login
+.login-container {
+  min-height: 100vh;
+  text-align: center;
+  padding-top: 8rem;
+  background-image: url('../static/images/login-background.svg');
+  .logo {
+    height: 4rem;
+  }
+  .content {
+    max-width: 23rem;
+    margin: 2rem auto;
+    padding: 3rem 2rem;
+    background: var(--white);
+    border-radius: var(--border-radius);
+  }
+  .social-container {
+    width: 100%;
+    text-align: left;
+    button {
+      background: var(--light);
+    }
+  }
+}
+
+.box {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  max-width: 100%;
+}
+
+.table-container {
+  overflow: auto;
+}
+
+label {
+  color: var(--light);
+}
+
+.value {
+  font-weight: 700;
+  color: var(--black);
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.project-container {
+  .search-bar {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.sider-menu-left {
+  position: relative;
+}
+
+.hover-opacity {
+  &:hover,
+  &:active {
+    opacity: 0.9;
+  }
+}
+
+.has-text-primary {
+  color: var(--primary);
+}
+.green-button {
+  background-color: var(--green) !important;
+  color: var(--white) !important;
+  border: none !important;
+  .hover-opacity();
+}
+
+.blue-button {
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+  border: none !important;
+  .hover-opacity();
+}
+
+.red-button {
+  background-color: var(--red) !important;
+  color: var(--white) !important;
+  border: none !important;
+  .hover-opacity();
+}
+
+.overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(0 0 0 / 80%);
+  z-index: 1;
+}
+
+.menu-overlay {
+  display: none;
+  top: 4rem;
+}

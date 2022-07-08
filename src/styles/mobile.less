@@ -1,0 +1,32 @@
+.sider-menu-left {
+  z-index: 100;
+  display: none;
+  position: fixed;
+  left: 0;
+}
+.trigger {
+  display: flex !important;
+}
+.is-show-menu {
+  overflow: hidden;
+  .sider-menu-left {
+    display: flex;
+  }
+  .menu-overlay {
+    display: block;
+  }
+}
+
+.main-content {
+  width: 100%;
+}
+
+.header {
+  .ant-menu-root {
+    li {
+      span:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+}
