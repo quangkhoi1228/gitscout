@@ -2,7 +2,7 @@ import { Col } from 'antd';
 
 interface Props {
   span?: number | 'auto' | string;
-  children: JSX.Element | JSX.Element[];
+  children?: JSX.Element | JSX.Element[];
 }
 
 interface ColumnSettingProps {
@@ -15,7 +15,7 @@ interface ColumnSettingProps {
 
 const Column = ({ span = 'auto', children }: Props) => {
   const setting = getSetting(span);
- 
+
   return <Col {...setting}>{children}</Col>;
 };
 
@@ -66,6 +66,14 @@ const getSetting = (span: number | 'auto' | string) => {
           sm: 24,
         };
         break;
+      case 18:
+        setting = {
+          span: 24,
+          xl: 18,
+          md: 12,
+          sm: 24,
+        };
+        break;
       case 12:
         setting = {
           span: 24,
@@ -75,9 +83,16 @@ const getSetting = (span: number | 'auto' | string) => {
         };
         break;
       case 24:
-      default:
         setting = {
           span: 24,
+          xl: 24,
+          md: 24,
+          sm: 24,
+        };
+        break;
+      default:
+        setting = {
+          span: span,
           xl: 24,
           md: 24,
           sm: 24,

@@ -2,6 +2,7 @@ import Account from 'pages/Account';
 import AddProject from 'pages/AddProject';
 import Config from 'pages/Config';
 import Project from 'pages/Project';
+import TimeTracking from 'pages/TimeTracking';
 import UpdateProjectProgress from 'pages/UpdateProjectProgress';
 import React from 'react';
 
@@ -14,7 +15,8 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={<TimeTracking />} />
+        <Route path='/timetracking' element={<TimeTracking />} />
         <Route path='/login' element={<Login />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/project' element={<Project />}></Route>

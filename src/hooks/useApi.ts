@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { errorNotification } from 'components/Template/Notification';
-import { apiDomain } from 'config/serverConfig';
-import { useNavigate } from 'react-router-dom';
+import { apiDomain, accessToken } from 'config/serverConfig';
 import Json from 'types/Json';
 import useLocalStorage from './useLocalStorage';
 
@@ -16,7 +15,7 @@ function getConfig({ authen, params }: { authen?: boolean; params?: Json }) {
   let config: AxiosRequestConfig = {};
   config.headers = {};
   if (authen) {
-    const accessToken = useLocalStorage.getItem('accessToken');
+    // const accessToken = useLocalStorage.getItem('accessToken');
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     } else {

@@ -1,35 +1,17 @@
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  SettingOutlined,
+  UserOutlined
+} from '@ant-design/icons';
 import { Menu } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import Logo from '../../static/images/logo.svg';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { setShowMenu } from '../../utils/utils';
-import useApi from 'hooks/useApi';
-import ApiResponse from 'types/ApiResponse';
-import { successNotification } from './Notification';
 const HeaderTop = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const history = useNavigate();
 
-  const onLogout = () => {
-    useApi.get('/api/v1/bo/auth/logout', {
-      authen: true,
-      onSuccess: (data: ApiResponse) => {
-        if (data.message === 'success') {
-          successNotification('Đăng xuất thành công');
-          useApi.removeJwtData();
-          history('/login');
-        }
-      },
-    });
-  };
   return (
     <Header
       className='header'
@@ -59,7 +41,7 @@ const HeaderTop = () => {
         />
       )}
       <NavLink to='/' className='logo'>
-        <img src={Logo} alt='logo' />
+        GitScout
       </NavLink>
       <Menu style={{ justifyContent: 'end' }} theme='dark' mode='horizontal'>
         <Menu.Item key={1}>
@@ -72,10 +54,10 @@ const HeaderTop = () => {
           <span>Cài đặt</span>
           <NavLink to='/setting' />
         </Menu.Item>
-        <Menu.Item key={3} onClick={onLogout}>
+        {/* <Menu.Item key={3} onClick={onLogout}>
           <LogoutOutlined />
           <span>Đăng xuất</span>
-        </Menu.Item>
+        </Menu.Item> */}
       </Menu>
     </Header>
   );

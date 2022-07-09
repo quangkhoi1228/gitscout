@@ -1,1 +1,2 @@
-export const apiDomain = 'http://13.215.249.70:3000';
+export const apiDomain = 'https://api.gitscrum.com';
+export const accessToken = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5naXRzY3J1bS5jb20vL2F1dGgvbG9naW4vZ29vZ2xlIiwiaWF0IjoxNjU2OTYwNjAyLCJleHAiOjE2NTk1NTI2MDIsIm5iZiI6MTY1Njk2MDYwMiwianRpIjoiWHNoY1FDblJRS1pUckdvMSIsInN1YiI6NjgzODIsInBydiI6ImZjZTZhZTEwYTg1YjZlNDE2YzA0ZDkyOGMyMGVhNzVjNjk1ZTNlYjgifQ.t7AXdh2uD0CVzc_7uiuZZckIb1qQZGqYRfIws-w7okw`;

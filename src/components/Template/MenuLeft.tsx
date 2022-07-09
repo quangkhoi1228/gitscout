@@ -1,9 +1,5 @@
 import {
-  HomeOutlined,
-  ProjectOutlined,
-  SettingOutlined,
-  TeamOutlined,
-  UserOutlined,
+  ClockCircleOutlined
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
@@ -15,33 +11,33 @@ interface MenuItemInfo {
   icon: JSX.Element;
   label: string;
 }
-const defaultItem = '/dashboard';
+const defaultItem = '/timetracking';
 const menuItems: MenuItemInfo[] = [
   {
-    path: `/dashboard`,
-    icon: <HomeOutlined />,
-    label: `Dashboard`,
+    path: `/timetracking`,
+    icon: <ClockCircleOutlined />,
+    label: `Time Tracking`,
   },
-  {
-    path: `/project`,
-    icon: <ProjectOutlined />,
-    label: `Dự án`,
-  },
-  {
-    path: `/account`,
-    icon: <UserOutlined />,
-    label: `Tài khoản`,
-  },
-  {
-    path: `/user`,
-    icon: <TeamOutlined />,
-    label: `Người dùng hệ thống`,
-  },
-  {
-    path: `/config`,
-    icon: <SettingOutlined />,
-    label: `Cấu hình`,
-  },
+  // {
+  //   path: `/project`,
+  //   icon: <ProjectOutlined />,
+  //   label: `Dự án`,
+  // },
+  // {
+  //   path: `/account`,
+  //   icon: <UserOutlined />,
+  //   label: `Tài khoản`,
+  // },
+  // {
+  //   path: `/user`,
+  //   icon: <TeamOutlined />,
+  //   label: `Người dùng hệ thống`,
+  // },
+  // {
+  //   path: `/config`,
+  //   icon: <SettingOutlined />,
+  //   label: `Cấu hình`,
+  // },
 ];
 
 const MenuLeft = () => {

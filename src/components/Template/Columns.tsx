@@ -5,7 +5,7 @@ interface Props {
 }
 const Columns = ({ children }: Props) => {
   return (
-    <Row gutter={[24, 0]} wrap={true}>
+    <Row gutter={[24, 24]} wrap={true}>
       {children}
     </Row>
   );

@@ -7,7 +7,7 @@ const Dashboard = () => {
   return (
     <Template title={title}>
       <OverviewInfo />
-      <Revenue />
+      <Revenue   />
     </Template>
   );
 };
