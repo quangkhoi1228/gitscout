@@ -25,6 +25,7 @@
     "react-quill": "^1.3.5",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "serve": "^13.0.4",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
@@ -33,8 +34,8 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "serve": "git pull; nohup serve -s build -p 8082 & disown ; exit",
-    "deploy" : "ssh shinobiweb@vpsserver \"cd /home/shinobiweb/gitscout ; yarn serve\""
+    "serve": "git pull; yarn build;  nohup serve -s build -p 8082 & disown ; exit",
+    "deploy": "ssh shinobiweb@vpsserver \"cd /home/shinobiweb/gitscout ; yarn serve\""
   },
   "eslintConfig": {
     "extends": [
