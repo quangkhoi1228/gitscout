@@ -1,5 +1,4 @@
 #!/bin/bash  
-cd /home/shinobiweb/gitscout 
 git pull
 # yarn build
 # yarn global add serve
