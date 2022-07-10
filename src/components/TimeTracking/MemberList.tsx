@@ -1,9 +1,7 @@
 import { Card } from 'antd';
-import Column from 'components/Template/Column';
-import Columns from 'components/Template/Columns';
 import { useEffect } from 'react';
 import TimeTrackingResponse, {
-  TimeTrackingDataItem,
+  TimeTrackingDataItem
 } from 'types/TimeTrackingResponse';
 
 const MemberList = ({ data }: { data: TimeTrackingResponse | undefined }) => {
