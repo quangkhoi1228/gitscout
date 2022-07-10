@@ -11,7 +11,7 @@ const SEO = ({ title, children }: Props) => {
     <HelmetProvider>
       <Helmet>
         <meta charSet='utf-8' />
-        <title>{title}</title>
+        <title>{title} | GitScout</title>
         <link rel='canonical' href='#' />
         <link rel='icon' type='image/x-icon' href={Icon} />
       </Helmet>

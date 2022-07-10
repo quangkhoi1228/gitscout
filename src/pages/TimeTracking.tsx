@@ -4,6 +4,9 @@ import Overview from 'components/TimeTracking/Overview';
 import useApi from 'hooks/useApi';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
+import { getAllWorkspace } from 'redux/workspace/workspaceReducer';
 import TimeTrackingResponse from 'types/TimeTrackingResponse';
 import { getMondayOfCurrentWeek, getSundayOfCurrentWeek } from 'utils/utils';
 import Template from './Template';
@@ -13,6 +16,8 @@ const title = 'Time Tracking';
 const TimeTracking = () => {
   const { RangePicker } = DatePicker;
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const workspace = useSelector((state: RootState) => state.workspace.value);
 
   const dateFormat = 'YYYY-MM-DD';
 
@@ -38,6 +43,10 @@ const TimeTracking = () => {
         },
       }
     );
+    dispatch(getAllWorkspace());
+
+    console.log(workspace);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log(dates);
@@ -67,7 +76,7 @@ const TimeTracking = () => {
             <RangePicker format={dateFormat} />
           </Form.Item>
 
-          <Form.Item >
+          <Form.Item>
             <Button type='primary' htmlType='submit'>
               Tìm kiếm
             </Button>

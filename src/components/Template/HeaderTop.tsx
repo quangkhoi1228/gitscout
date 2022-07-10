@@ -2,13 +2,14 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SettingOutlined,
-  UserOutlined
+  UserOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { setShowMenu } from '../../utils/utils';
+import Logo from '../../static/images/logo.svg';
 const HeaderTop = () => {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -41,7 +42,7 @@ const HeaderTop = () => {
         />
       )}
       <NavLink to='/' className='logo'>
-        GitScout
+        <img src={Logo} alt='logo' />
       </NavLink>
       <Menu style={{ justifyContent: 'end' }} theme='dark' mode='horizontal'>
         <Menu.Item key={1}>

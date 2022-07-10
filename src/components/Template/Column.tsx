@@ -13,7 +13,7 @@ interface ColumnSettingProps {
   flex?: number | 'auto' | string;
 }
 
-const Column = ({ span = 'auto', children }: Props) => {
+const   Column = ({ span = 'auto', children }: Props) => {
   const setting = getSetting(span);
 
   return <Col {...setting}>{children}</Col>;
@@ -28,10 +28,10 @@ const getSetting = (span: number | 'auto' | string) => {
     switch (span) {
       case 6:
         setting = {
-          span: 24,
+          span: 12,
           xl: 6,
           md: 12,
-          sm: 24,
+          sm: 12,
         };
         break;
       case 8:

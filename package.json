@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/charts": "^1.3.6",
     "@craco/craco": "^6.4.3",
+    "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -23,6 +24,7 @@
     "react-helmet-async": "^1.3.0",
     "react-hook-form": "^7.33.0",
     "react-quill": "^1.3.5",
+    "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "serve": "^13.0.4",
@@ -35,7 +37,7 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "serve": "git pull; yarn build;   yarn global add serve; nohup serve -s build -p 8082 & disown ; exit",
-    "deploy": "ssh shinobiweb@vpsserver \"cd gitscout/; git pull; yarn build; npx serve -p 8082  -s  build & \""
+    "deploy": "ssh shinobiweb@vpsserver \"cd gitscout/; git pull && yarn build && fuser -k 8082/tcp; npx serve -p 8082  -s  build & \""
   },
   "eslintConfig": {
     "extends": [
