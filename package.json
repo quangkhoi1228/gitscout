@@ -35,7 +35,7 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "serve": "git pull; yarn build;   yarn global add serve; nohup serve -s build -p 8082 & disown ; exit",
-    "deploy": "ssh shinobiweb@vpsserver \"cd gitscout/; ./deploy.sh\""
+    "deploy": "ssh shinobiweb@vpsserver \"cd gitscout/;chmod +x deploy.sh; ./deploy.sh\""
   },
   "eslintConfig": {
     "extends": [
