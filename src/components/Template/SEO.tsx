@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
-import Icon from '../../static/images/logo.svg';
+import Icon from '../../static/images/favicon.svg';
 interface Props {
   title: string;
   children: JSX.Element;
