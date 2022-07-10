@@ -66,7 +66,8 @@ const TimeTracking = () => {
 
             <RangePicker format={dateFormat} />
           </Form.Item>
-          <Form.Item>
+
+          <Form.Item >
             <Button type='primary' htmlType='submit'>
               Tìm kiếm
             </Button>

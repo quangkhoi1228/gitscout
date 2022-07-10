@@ -2,9 +2,9 @@ import {
   EyeInvisibleOutlined,
   EyeOutlined,
   LockOutlined,
-  UserOutlined,
+  UserOutlined
 } from '@ant-design/icons';
-import { Button, Form, Input, Layout, Space, Typography } from 'antd';
+import { Button, Form, Input, Layout, Space } from 'antd';
 import { successNotification } from 'components/Template/Notification';
 // import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import SEO from 'components/Template/SEO';
