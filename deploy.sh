@@ -1,5 +1,5 @@
 cd /home/shinobiweb/gitscout 
 git pull
-# yarn build
-yarn add serve
-serve -s build -p 8082 & 
+yarn build
+yarn global add serve
+serve -p 8082  -s  build  & 
