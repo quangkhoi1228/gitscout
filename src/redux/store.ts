@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import counterReducer from './counter/counterReducer';
-import workspaceReducer from './workspace/workspaceReducer';
+import counterReducer from './reducer/counterReducer';
+import timeTrackingReducer from './reducer/timeTrackingReducer';
+import workspaceReducer from './reducer/workspaceReducer';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     workspace: workspaceReducer,
+    timeTracking: timeTrackingReducer,
   },
 });
 

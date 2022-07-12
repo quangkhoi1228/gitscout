@@ -1,11 +1,9 @@
-import { StringLiteralLike } from 'typescript';
-
 export interface TimeTrackingDataItem {
   time: { seconds: number; formatted: string };
 
   user: {
     name: string;
-    username: StringLiteralLike;
+    username: string;
     avatar: string;
     confirmed: true;
     headline: string;

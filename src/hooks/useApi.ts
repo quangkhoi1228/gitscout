@@ -34,9 +34,12 @@ function getConfig({ authen, params }: { authen?: boolean; params?: Json }) {
 
 function handleError(error: any) {
   console.log(error);
-  const responseData = error.response.data;
-  const message = responseData.message ?? responseData.errors[0];
-  errorNotification(message);
+  if (error?.response?.data) {
+    const responseData = error.response.data;
+    const message = responseData.message ?? responseData.errors[0];
+    errorNotification(message);
+  } else {
+  }
 }
 
 function get(url: string, { authen, params, onSuccess, onFinally }: Props) {

@@ -1,13 +1,18 @@
 import { Card } from 'antd';
 import { useEffect } from 'react';
-import TimeTrackingResponse, {
-  TimeTrackingDataItem
-} from 'types/TimeTrackingResponse';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
+import { TimeTrackingDataItem } from 'types/TimeTrackingResponse';
 
-const MemberList = ({ data }: { data: TimeTrackingResponse | undefined }) => {
+const MemberList = () => {
+  const timeTracking = useSelector((state: RootState) => {
+    return state.timeTracking.value;
+  });
+
+  const data = timeTracking?.value;
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    // console.log(data);
+  }, [timeTracking]);
   return (
     <div className='time-tracking-member-list'>
       {data?.data.map((dataItem: TimeTrackingDataItem, index) => (

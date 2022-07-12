@@ -1,13 +1,19 @@
 import { Card } from 'antd';
 import Column from 'components/Template/Column';
 import Columns from 'components/Template/Columns';
-import TimeTrackingResponse from 'types/TimeTrackingResponse';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 const gridStyle: React.CSSProperties = {
   textAlign: 'left',
 };
 
-const Overview = ({ data }: { data: TimeTrackingResponse | undefined }) => {
+const Overview = () => {
+  const timeTracking = useSelector((state: RootState) => {
+    return state.timeTracking.value;
+  });
+
+  const data = timeTracking?.value;
   return (
     <div className='time-tracking-overview'>
       <Columns>
