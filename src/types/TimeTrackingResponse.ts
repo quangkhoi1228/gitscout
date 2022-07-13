@@ -9,6 +9,7 @@ export interface TimeTrackingDataItem {
     headline: string;
     link: true;
   };
+  detail?: { [project: string]: { seconds: number; formatted: string } };
 }
 
 export interface TimeTrackingResume {

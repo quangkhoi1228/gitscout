@@ -19,13 +19,17 @@ const Overview = () => {
       <Columns>
         <Column span={6}>
           <Card style={gridStyle} size='small'>
-            <div className='value'>{data?.data.length ?? ''}</div>
+            <div className='value'>{data?.data.length ?? '-'}</div>
             <div className='label'>Thành viên</div>
           </Card>
         </Column>
         <Column span={6}>
           <Card style={gridStyle} size='small'>
-            <div className='value'>{data?.resume.worked_hours}</div>
+            <div className='value'>
+              {data?.resume.worked_hours !== '' && data?.resume.worked_hours
+                ? data?.resume.worked_hours
+                : '-'}
+            </div>
             <div className='label'>Tổng giờ làm</div>
           </Card>
         </Column>
@@ -34,7 +38,7 @@ const Overview = () => {
             <div className='value'>
               {data?.resume.period_start
                 ? data.resume.period_start.split(' ')[0]
-                : ''}
+                : '-'}
             </div>
             <div className='label'>Task đầu tiên</div>
           </Card>
@@ -44,7 +48,7 @@ const Overview = () => {
             <div className='value'>
               {data?.resume.period_end
                 ? data.resume.period_end.split(' ')[0]
-                : ''}
+                : '-'}
             </div>
             <div className='label'>Task cuối cùng</div>
           </Card>

@@ -3,5 +3,7 @@ import TimeTrackingResponse from './TimeTrackingResponse';
 export interface TimeTrackingDataType {
   startDate: string;
   endDate: string;
-  value?: TimeTrackingResponse;
+  loading?: boolean;
+  value: TimeTrackingResponse;
+  detail?: { [project: string]: TimeTrackingResponse };
 }
