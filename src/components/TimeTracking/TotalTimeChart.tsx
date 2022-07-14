@@ -25,7 +25,7 @@ const TotalTimeChart = () => {
     chart: {
       type: 'column',
       height: Math.max(
-        14 * 4.75 * (timeTracking ? timeTracking.value.data.length : 0),
+        14 * 4.75 * (timeTracking ? timeTracking.value.data.length : 0) + 5,
         250
       ),
     },
@@ -70,11 +70,12 @@ const TotalTimeChart = () => {
   };
 
   return (
-    <div
-      className='time-tracking-total-time-chart-container'
-      style={{ display: !timeTracking ? 'none' : 'block' }}
-    >
-      <HighchartsReact highcharts={Highcharts} options={options} />
+    <div>
+      {timeTracking && timeTracking.value.data.length > 0 && (
+        <div className='time-tracking-total-time-chart-container'>
+          <HighchartsReact highcharts={Highcharts} options={options} />
+        </div>
+      )}
     </div>
   );
 };

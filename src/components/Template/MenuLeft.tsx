@@ -1,6 +1,4 @@
-import {
-  ClockCircleOutlined
-} from '@ant-design/icons';
+import { ClockCircleOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
 import { useEffect, useState } from 'react';

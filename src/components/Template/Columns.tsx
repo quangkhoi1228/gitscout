@@ -1,11 +1,12 @@
 import { Row } from 'antd';
 
 interface Props {
-  children: JSX.Element | JSX.Element[];
+  children?: JSX.Element | JSX.Element[];
+  className?: string;
 }
-const Columns = ({ children }: Props) => {
+const Columns = ({ children, className }: Props) => {
   return (
-    <Row gutter={[24, 24]} wrap={true}>
+    <Row gutter={[24, 24]} wrap={true} className={className}>
       {children}
     </Row>
   );

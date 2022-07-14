@@ -46,7 +46,7 @@ export function getAllProjectInWorkspace(
   }
 }
 
-export function getFormatTime(seconds: number) {
+export function getFormatTimeTracking(seconds: number) {
   const hour = Math.floor(seconds / 3600);
   const minute = Math.floor((seconds - hour * 3600) / 60);
   const second = Math.floor(seconds - hour * 3600 - minute * 60);
@@ -91,16 +91,21 @@ export function caculateTimeTracking(
           );
           if (memberInfoExistedList.length === 0) {
             timeTrackingDataItem.detail = {
-              [project]: timeTrackingDataItem.time,
+              [project]: { ...timeTrackingDataItem.time },
             };
+
             result.value.data.push(timeTrackingDataItem);
           } else {
             const userInfo = memberInfoExistedList[0];
+
             if (userInfo.detail) {
               userInfo.detail[project] = timeTrackingDataItem.time;
             }
             userInfo.time.seconds += timeTrackingDataItem.time.seconds;
-            userInfo.time.formatted = getFormatTime(userInfo.time.seconds);
+            // userInfo.time.seconds = timeTrackingDataItem.time.seconds;
+            userInfo.time.formatted = getFormatTimeTracking(
+              userInfo.time.seconds
+            );
           }
 
           totalSeconds += timeTrackingDataItem.time.seconds;
@@ -134,7 +139,7 @@ export function caculateTimeTracking(
 
       result.value.resume.period_start = result.startDate;
       result.value.resume.period_end = result.endDate;
-      result.value.resume.worked_hours = getFormatTime(totalSeconds);
+      result.value.resume.worked_hours = getFormatTimeTracking(totalSeconds);
       result.detail = resultList;
     }
   );

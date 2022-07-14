@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setTimeTrackingData,
-  setTimeTrackingLoading
+  setTimeTrackingLoading,
 } from 'redux/reducer/timeTrackingReducer';
 import { setWorkspaceData } from 'redux/reducer/workspaceReducer';
 import { RootState } from 'redux/store';
@@ -46,7 +46,7 @@ const Filter = () => {
 
   useEffect(() => {
     getAllWorkspace((res: WorkspaceDataType) => {
-      dispatch(setWorkspaceData(res));
+       dispatch(setWorkspaceData(res));
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
