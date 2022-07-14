@@ -82,7 +82,7 @@ export function caculateTimeTracking(
     ([project, responseItem]: [key: string, value: Json]) => {
       const { timeTrackingResponse } = responseItem;
       //data handle
-      timeTrackingResponse.data.forEach(  
+      timeTrackingResponse.data.forEach(
         (timeTrackingDataItem: TimeTrackingDataItem) => {
           const memberInfoExistedList = result.value.data.filter(
             (timeTrackingDataItemInResult) =>
@@ -139,7 +139,9 @@ export function caculateTimeTracking(
     }
   );
 
-  // console.log( result.value.data[0].detail);
+  result.value.data.sort(
+    (current, next) => next.time.seconds - current.time.seconds
+  );
 
   callback(result);
 }

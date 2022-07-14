@@ -21,7 +21,6 @@ const TotalTimeChart = () => {
     setData(newData);
   }, [timeTracking]);
 
-  console.log(timeTracking);
   const options = {
     chart: {
       type: 'column',
@@ -51,7 +50,6 @@ const TotalTimeChart = () => {
     },
     tooltip: {
       formatter: function (): any {
-        console.log(this);
         const data: any = this;
         return `${data.key}`;
       },
@@ -71,10 +69,11 @@ const TotalTimeChart = () => {
     ],
   };
 
-  console.log(options);
-
   return (
-    <div className='time-tracking-total-time-chart-container'>
+    <div
+      className='time-tracking-total-time-chart-container'
+      style={{ display: !timeTracking ? 'none' : 'block' }}
+    >
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );
