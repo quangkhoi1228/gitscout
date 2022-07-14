@@ -1,8 +1,7 @@
-import { Card } from 'antd';
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { TimeTrackingDataItem } from 'types/TimeTrackingResponse';
+import Member from './Member';
 
 const MemberList = () => {
   const timeTracking = useSelector((state: RootState) => {
@@ -10,27 +9,13 @@ const MemberList = () => {
   });
 
   const data = timeTracking?.value;
-  useEffect(() => {
-    // console.log(data);
-  }, [timeTracking]);
+  // useEffect(() => {
+  //   console.log(timeTracking);
+  // }, [timeTracking]);
   return (
     <div className='time-tracking-member-list'>
-      {data?.data.map((dataItem: TimeTrackingDataItem, index) => (
-        <Card key={index} size='small' style={{ marginTop: '0.75rem' }}>
-          <div className='member-container'>
-            <div>
-              <img
-                className='avatar'
-                src={dataItem.user.avatar}
-                alt={dataItem.user.name}
-              />
-              <span className='name'>{dataItem.user.name}</span>
-            </div>
-            <div className=''>
-              <span className='time'>{dataItem.time.formatted}</span>
-            </div>
-          </div>
-        </Card>
+      {data?.data.map((dataItem: TimeTrackingDataItem) => (
+        <Member key={dataItem.user.username} dataItem={dataItem} />
       ))}
     </div>
   );

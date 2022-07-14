@@ -180,7 +180,6 @@ export function getTimeTracking({
                 projectInfo,
               };
 
-              console.log(timeTrackingResponse);
               if (
                 Object.keys(resultList).length === projectResponse.data.length
               ) {

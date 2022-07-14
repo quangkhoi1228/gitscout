@@ -1,6 +1,6 @@
-import { Button, Card, DatePicker, Form, Select, Space } from 'antd';
+import { Button, Card, DatePicker, Form, Radio, Select, Space } from 'antd';
 import moment from 'moment';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setTimeTrackingData,
@@ -19,6 +19,8 @@ const Filter = () => {
   const { Option } = Select;
 
   const dispatch = useDispatch();
+
+  const [timeRange, setTimeRange] = useState<string>('week');
 
   const { workspace, timeTracking } = useSelector((state: RootState) => {
     return {
@@ -51,18 +53,50 @@ const Filter = () => {
   }, []);
 
   useEffect(() => {
+    let dateRange;
+    const date = new Date();
+
+    switch (timeRange) {
+      case 'today':
+        dateRange = [moment(date, dateFormat), moment(date, dateFormat)];
+        break;
+      case 'month':
+        dateRange = [
+          moment(new Date(date.getFullYear(), date.getMonth(), 1), dateFormat),
+          moment(
+            new Date(date.getFullYear(), date.getMonth() + 1, 0),
+            dateFormat
+          ),
+        ];
+        break;
+      case 'week':
+      default:
+        dateRange = [
+          moment(getMondayOfCurrentWeek(), dateFormat),
+          moment(getSundayOfCurrentWeek(), dateFormat),
+        ];
+
+        break;
+    }
+    form.setFieldsValue({
+      dateRange: dateRange,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeRange]);
+
+  useEffect(() => {
     form.setFieldsValue({
       workspace: workspace?.data[0].slug,
-      dateRange: [
-        moment(getMondayOfCurrentWeek(), dateFormat),
-        moment(getSundayOfCurrentWeek(), dateFormat),
-      ],
     });
 
     getTimeTrackingByFilter();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workspace]);
+
+  useEffect(() => {
+    getTimeTrackingByFilter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeRange]);
 
   return (
     <>
@@ -70,7 +104,12 @@ const Filter = () => {
         <Form onFinish={getTimeTrackingByFilter} layout='inline' form={form}>
           <Space size={[8, 16]} wrap>
             <Form.Item label='Workspace' name='workspace'>
-              <Select style={{ width: 150 }}>
+              <Select
+                style={{ width: 150 }}
+                onChange={() => {
+                  getTimeTrackingByFilter();
+                }}
+              >
                 {workspace?.data.map((company: CompanyDataType) => (
                   <Option key={company.slug} value={company.slug}>
                     {company.name}
@@ -78,8 +117,27 @@ const Filter = () => {
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item label='Ngày' name={'dateRange'}>
-              <RangePicker format={dateFormat} />
+            <Form.Item label='Thời gian'>
+              <Radio.Group
+                value={timeRange}
+                onChange={(e) => setTimeRange(e.target.value)}
+              >
+                <Radio.Button value='today'>Hôm nay</Radio.Button>
+                <Radio.Button value='week'>Tuần này</Radio.Button>
+                <Radio.Button value='month'>Tháng này</Radio.Button>
+                <Radio.Button value='custom'>Tuỳ chỉnh</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item
+              name={'dateRange'}
+              style={{ display: timeRange === 'custom' ? 'block' : 'none' }}
+            >
+              <RangePicker
+                format={dateFormat}
+                onChange={() => {
+                  getTimeTrackingByFilter();
+                }}
+              />
             </Form.Item>
             <Form.Item style={{ alignItems: 'end' }}>
               <Button

@@ -18,7 +18,7 @@ const HeaderTop = () => {
       className='header'
       style={{
         position: 'fixed',
-        zIndex: 1,
+        zIndex: 2,
         width: '100%',
         paddingLeft: '1.5rem',
         paddingRight: '1.5rem',
