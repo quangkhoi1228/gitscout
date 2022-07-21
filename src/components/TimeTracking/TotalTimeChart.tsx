@@ -25,7 +25,8 @@ const TotalTimeChart = () => {
     chart: {
       type: 'column',
       height: Math.max(
-        14 * (4.75 * (timeTracking ? timeTracking.value.data.length : 0) + 2.75),
+        14 *
+          (4.75 * (timeTracking ? timeTracking.value.data.length : 0) + 2.75),
         250
       ),
     },
@@ -53,6 +54,9 @@ const TotalTimeChart = () => {
         const data: any = this;
         return `${data.key}`;
       },
+    },
+    accessibility: {
+      enabled: false,
     },
     plotOptions: {
       column: {

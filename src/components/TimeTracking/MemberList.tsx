@@ -1,5 +1,5 @@
 import { Switch } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { TimeTrackingDataItem } from 'types/TimeTrackingResponse';
@@ -13,9 +13,9 @@ const MemberList = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
 
   const data = timeTracking?.value;
-  // useEffect(() => {
-  //   console.log(timeTracking);
-  // }, [timeTracking]);
+  useEffect(() => {
+    console.log(timeTracking);
+  }, [timeTracking]);
   return (
     <div className='time-tracking-member-list'>
       {data?.data && data.data.length > 0 && (
