@@ -1,4 +1,3 @@
-
 export function setShowMenu(value: boolean) {
   if (value) {
     document.body.classList.add('is-show-menu');
@@ -28,3 +27,5 @@ export function getSundayOfCurrentWeek() {
 
   return sunday;
 }
+ 
+

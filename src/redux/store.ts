@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import counterReducer from './reducer/counterReducer';
+import logTimeTrackingReducer from './reducer/logTimeTrackingReducer';
 import timeTrackingReducer from './reducer/timeTrackingReducer';
 import workspaceReducer from './reducer/workspaceReducer';
 
@@ -9,6 +10,7 @@ export const store = configureStore({
     counter: counterReducer,
     workspace: workspaceReducer,
     timeTracking: timeTrackingReducer,
+    logTimeTracking: logTimeTrackingReducer,
   },
 });
 

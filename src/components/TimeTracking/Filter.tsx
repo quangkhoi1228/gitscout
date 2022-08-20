@@ -2,6 +2,7 @@ import { Button, Card, DatePicker, Form, Radio, Select, Space } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setLogTimeTrackingData } from 'redux/reducer/logTimeTrackingReducer';
 import {
   setTimeTrackingData,
   setTimeTrackingLoading,
@@ -9,9 +10,14 @@ import {
 import { setWorkspaceData } from 'redux/reducer/workspaceReducer';
 import { RootState } from 'redux/store';
 import { CompanyDataType } from 'types/CompanyDataType';
+import { LogTimeTrackingItemDataType } from 'types/LogTimeTrackingItemDataType';
 import { TimeTrackingDataType } from 'types/TimeTrackingDataType';
 import { WorkspaceDataType } from 'types/WorkspaceDataType';
-import { getAllWorkspace, getTimeTracking } from 'utils/timeTrackingUtils';
+import {
+  getAllWorkspace,
+  getLogTimeTracking,
+  getTimeTracking,
+} from 'utils/timeTrackingUtils';
 import { getMondayOfCurrentWeek, getSundayOfCurrentWeek } from 'utils/utils';
 
 const Filter = () => {
@@ -40,13 +46,17 @@ const Filter = () => {
       callback: (res: TimeTrackingDataType) => {
         dispatch(setTimeTrackingData(res));
         dispatch(setTimeTrackingLoading(false));
+
+        getLogTimeTracking(request, (data: LogTimeTrackingItemDataType[]) => {
+          dispatch(setLogTimeTrackingData(data));
+        });
       },
     });
   };
 
   useEffect(() => {
     getAllWorkspace((res: WorkspaceDataType) => {
-       dispatch(setWorkspaceData(res));
+      dispatch(setWorkspaceData(res));
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

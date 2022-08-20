@@ -1,6 +1,11 @@
 import { Card, Col, Row } from 'antd';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 import Json from 'types/Json';
+import { LogTimeTrackingByUserDataType } from 'types/LogTimeTrackingByUserDataType';
 import { TimeTrackingDataItem } from 'types/TimeTrackingResponse';
+import { getLogTimeTrackingByUser } from 'utils/timeTrackingUtils';
 
 const Member = ({
   dataItem,
@@ -9,6 +14,21 @@ const Member = ({
   dataItem: TimeTrackingDataItem;
   isShowDetail: boolean;
 }) => {
+  const [logTimeData, setLogTimeData] = useState<
+    LogTimeTrackingByUserDataType | undefined
+  >();
+
+  const { logTimeTracking } = useSelector((state: RootState) => {
+    return {
+      workspace: state.workspace.value,
+      logTimeTracking: state.logTimeTracking.value,
+      timeTracking: state.timeTracking.value,
+    };
+  });
+  useEffect(() => {
+    const result = getLogTimeTrackingByUser(logTimeTracking);
+    setLogTimeData(result);
+  }, [logTimeTracking]);
   return (
     <Card size='small' style={{ marginTop: '0.75rem' }}>
       <div className='member-container'>

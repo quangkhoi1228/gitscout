@@ -1,5 +1,8 @@
 import useApi from 'hooks/useApi';
 import Json from 'types/Json';
+import { LogTimeTrackingByUserDataType } from 'types/LogTimeTrackingByUserDataType';
+import { LogTimeTrackingDataType } from 'types/LogTimeTrackingDataType';
+import { LogTimeTrackingItemDataType } from 'types/LogTimeTrackingItemDataType';
 import ProjectResponse from 'types/ProjectResponse';
 import { TimeTrackingDataType } from 'types/TimeTrackingDataType';
 import TimeTrackingResponse, {
@@ -80,7 +83,7 @@ export function caculateTimeTracking(
 
   Object.entries(resultList).forEach(
     ([project, responseItem]: [key: string, value: Json]) => {
-      const { timeTrackingResponse } = responseItem;
+      const { timeTrackingResponse, projectInfo } = responseItem;
       //data handle
       timeTrackingResponse.data.forEach(
         (timeTrackingDataItem: TimeTrackingDataItem) => {
@@ -91,7 +94,7 @@ export function caculateTimeTracking(
           );
           if (memberInfoExistedList.length === 0) {
             timeTrackingDataItem.detail = {
-              [project]: { ...timeTrackingDataItem.time },
+              [projectInfo.name]: { ...timeTrackingDataItem.time },
             };
 
             result.value.data.push(timeTrackingDataItem);
@@ -99,7 +102,7 @@ export function caculateTimeTracking(
             const userInfo = memberInfoExistedList[0];
 
             if (userInfo.detail) {
-              userInfo.detail[project] = timeTrackingDataItem.time;
+              userInfo.detail[projectInfo.name] = timeTrackingDataItem.time;
             }
             userInfo.time.seconds += timeTrackingDataItem.time.seconds;
             // userInfo.time.seconds = timeTrackingDataItem.time.seconds;
@@ -200,4 +203,83 @@ export function getTimeTracking({
       }
     }
   );
+}
+
+export function getLogTimeTracking(
+  request: Json,
+  getLogTimeTrackingCallback: Function
+) {
+  function getLogTimeTrackingByPage(page: number, callback: Function) {
+    useApi.get('/time-trackings/', {
+      authen: true,
+      params: {
+        company_slug: 'stalk',
+        project_slug: 's-talk-website',
+        users: '',
+        start:
+          request.dateRange.length > 0
+            ? new Date(request.dateRange[0]).toISOString().split('T')[0] +
+              ' 00:00:00'
+            : '',
+        end:
+          request.dateRange.length > 0
+            ? new Date(request.dateRange[1]).toISOString().split('T')[0] +
+              ' 23:59:00'
+            : '',
+        page: page,
+      },
+      onSuccess: (res: any) => {
+        callback(res);
+
+        // process_wb(wb);
+      },
+    });
+  }
+
+  getLogTimeTrackingByPage(1, (res: LogTimeTrackingDataType) => {
+    let totalPage = res.total_pages;
+    function addData(
+      result: LogTimeTrackingItemDataType[],
+      newData: LogTimeTrackingDataType
+    ) {
+      return result.concat(newData.data.data);
+    }
+    let data: LogTimeTrackingItemDataType[] = [];
+
+    data = addData(data, res);
+
+    if (totalPage > 1) {
+      let i = 1;
+      do {
+        i++;
+        // eslint-disable-next-line no-loop-func
+        getLogTimeTrackingByPage(i, (resData: LogTimeTrackingDataType) => {
+          data = addData(data, resData);
+          if (data.length === resData.total) getLogTimeTrackingCallback(data);
+        });
+      } while (i < totalPage);
+    } else {
+      getLogTimeTrackingCallback(data);
+    }
+  });
+}
+
+export function getLogTimeTrackingByUser(data: LogTimeTrackingItemDataType[]) {
+  const result: LogTimeTrackingByUserDataType = {};
+  data.forEach((item) => {
+    const time = item.time.end.timestamp - item.time.start.timestamp;
+    console.log(time);
+
+    if (!Object.keys(result).includes(item.user.username)) {
+      result[item.user.username] = {
+        ...item.user,
+        ...{ time: 0, task: [], point: 0 },
+      };
+    }
+    result[item.user.username].time += time;
+    result[item.user.username].task.push(item);
+    result[item.user.username].point +=
+      (time / 3600) * Number(item.task.effort.effort);
+  });
+  return result;
 }
