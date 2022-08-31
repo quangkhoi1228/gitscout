@@ -4,7 +4,6 @@ import Columns from 'components/Template/Columns';
 import Filter from 'components/TimeTracking/Filter';
 import MemberList from 'components/TimeTracking/MemberList';
 import Overview from 'components/TimeTracking/Overview';
-import TaskLogDetail from 'components/TimeTracking/TaskLogDetail';
 import TotalTimeChart from 'components/TimeTracking/TotalTimeChart';
 import Template from './Template';
 
@@ -24,7 +23,6 @@ const TimeTracking = () => {
           <MemberList />
         </Column>
       </Columns>
-      <TaskLogDetail />
     </Template>
   );
 };

@@ -13,7 +13,9 @@ interface Props {
 
 function getConfig({ authen, params }: { authen?: boolean; params?: Json }) {
   let config: AxiosRequestConfig = {};
-  config.headers = {};
+  config.headers = {
+    encodeURI: true,
+  };
   if (authen) {
     // const accessToken = useLocalStorage.getItem('accessToken');
     if (accessToken) {

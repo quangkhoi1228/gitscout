@@ -1,34 +1,22 @@
-import { Button, Card, DatePicker, Form, Radio, Select, Space } from 'antd';
+import { Button, Card, DatePicker, Form, Radio, Space } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLogTimeTrackingData } from 'redux/reducer/logTimeTrackingReducer';
-import {
-  setTimeTrackingData,
-  setTimeTrackingLoading,
-} from 'redux/reducer/timeTrackingReducer';
-import { setWorkspaceData } from 'redux/reducer/workspaceReducer';
+import { setTimeTrackingLoading } from 'redux/reducer/timeTrackingReducer';
 import { RootState } from 'redux/store';
-import { CompanyDataType } from 'types/CompanyDataType';
 import { LogTimeTrackingItemDataType } from 'types/LogTimeTrackingItemDataType';
-import { TimeTrackingDataType } from 'types/TimeTrackingDataType';
-import { WorkspaceDataType } from 'types/WorkspaceDataType';
-import {
-  getAllWorkspace,
-  getLogTimeTracking,
-  getTimeTracking,
-} from 'utils/timeTrackingUtils';
+import { getLogTimeTracking } from 'utils/timeTrackingUtils';
 import { getMondayOfCurrentWeek, getSundayOfCurrentWeek } from 'utils/utils';
 
 const Filter = () => {
   const { RangePicker } = DatePicker;
-  const { Option } = Select;
 
   const dispatch = useDispatch();
 
-  const [timeRange, setTimeRange] = useState<string>('week');
+  const [timeRange, setTimeRange] = useState<string>('month');
 
-  const { workspace, timeTracking } = useSelector((state: RootState) => {
+  const { timeTracking } = useSelector((state: RootState) => {
     return {
       workspace: state.workspace.value,
       timeTracking: state.timeTracking.value,
@@ -41,26 +29,13 @@ const Filter = () => {
   const getTimeTrackingByFilter = () => {
     dispatch(setTimeTrackingLoading(true));
     const request = form.getFieldsValue();
-    getTimeTracking({
-      request,
-      callback: (res: TimeTrackingDataType) => {
-        dispatch(setTimeTrackingData(res));
-        dispatch(setTimeTrackingLoading(false));
+    console.log(request);
+    request['workspace'] = 'stalk';
 
-        getLogTimeTracking(request, (data: LogTimeTrackingItemDataType[]) => {
-          dispatch(setLogTimeTrackingData(data));
-        });
-      },
+    getLogTimeTracking(request, (data: LogTimeTrackingItemDataType[]) => {
+      dispatch(setLogTimeTrackingData(data));
     });
   };
-
-  useEffect(() => {
-    getAllWorkspace((res: WorkspaceDataType) => {
-      dispatch(setWorkspaceData(res));
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     let dateRange;
@@ -71,13 +46,28 @@ const Filter = () => {
         dateRange = [moment(date, dateFormat), moment(date, dateFormat)];
         break;
       case 'month':
-        dateRange = [
-          moment(new Date(date.getFullYear(), date.getMonth(), 1), dateFormat),
-          moment(
-            new Date(date.getFullYear(), date.getMonth() + 1, 0),
-            dateFormat
-          ),
-        ];
+        let start =
+          date.getDate() > 25
+            ? moment(
+                new Date(date.getFullYear(), date.getMonth(), 26),
+                dateFormat
+              )
+            : moment(
+                new Date(date.getFullYear(), date.getMonth() - 1, 26),
+                dateFormat
+              );
+
+        let end =
+          date.getDate() > 25
+            ? moment(
+                new Date(date.getFullYear(), date.getMonth() + 1, 25),
+                dateFormat
+              )
+            : moment(
+                new Date(date.getFullYear(), date.getMonth(), 25),
+                dateFormat
+              );
+        dateRange = [start, end];
         break;
       case 'week':
       default:
@@ -95,15 +85,6 @@ const Filter = () => {
   }, [timeRange]);
 
   useEffect(() => {
-    form.setFieldsValue({
-      workspace: workspace?.data[0].slug,
-    });
-
-    getTimeTrackingByFilter();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [workspace]);
-
-  useEffect(() => {
     getTimeTrackingByFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange]);
@@ -113,20 +94,6 @@ const Filter = () => {
       <Card className='time-tracking-filter-container' size='small'>
         <Form onFinish={getTimeTrackingByFilter} layout='inline' form={form}>
           <Space size={[8, 16]} wrap>
-            <Form.Item label='Workspace' name='workspace'>
-              <Select
-                style={{ width: 150 }}
-                onChange={() => {
-                  getTimeTrackingByFilter();
-                }}
-              >
-                {workspace?.data.map((company: CompanyDataType) => (
-                  <Option key={company.slug} value={company.slug}>
-                    {company.name}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
             <Form.Item label='Thời gian'>
               <Radio.Group
                 value={timeRange}

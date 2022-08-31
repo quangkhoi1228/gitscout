@@ -1,4 +1,4 @@
-import { Card, Col, Row } from 'antd';
+import { Card } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
@@ -7,7 +7,7 @@ import { LogTimeTrackingByUserDataType } from 'types/LogTimeTrackingByUserDataTy
 import { LogTimeTrackingByUserItemDataType } from 'types/LogTimeTrackingByUserItemDataType';
 import {
   getFormatTimeTracking,
-  getLogTimeTrackingByUser,
+  getLogTimeTrackingByUser
 } from 'utils/timeTrackingUtils';
 
 const TaskLogDetail = () => {
@@ -23,6 +23,7 @@ const TaskLogDetail = () => {
   });
   useEffect(() => {
     const result = getLogTimeTrackingByUser(logTimeTracking);
+    console.log(result);
     setLogTimeData(result);
   }, [logTimeTracking]);
 
@@ -48,7 +49,7 @@ const TaskLogDetail = () => {
                 </div>
 
                 <div className=''>
-                  <span className='name'>{Number(item.point.toFixed(5))}</span>
+                  <span className='name'>{Math.round(Number(item.point))}</span>
                 </div>
               </div>
             </Card>

@@ -1,6 +1,7 @@
 import Account from 'pages/Account';
 import AddProject from 'pages/AddProject';
 import Config from 'pages/Config';
+import LogTime from 'pages/LogTime';
 import Project from 'pages/Project';
 import TimeTracking from 'pages/TimeTracking';
 import UpdateProjectProgress from 'pages/UpdateProjectProgress';
@@ -17,6 +18,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path='/' element={<TimeTracking />} />
         <Route path='/timetracking' element={<TimeTracking />} />
+        <Route path='/logtime' element={<LogTime />} />
         <Route path='/login' element={<Login />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/project' element={<Project />}></Route>

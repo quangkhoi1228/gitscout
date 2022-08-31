@@ -16,6 +16,11 @@ const menuItems: MenuItemInfo[] = [
     icon: <ClockCircleOutlined />,
     label: `Time Tracking`,
   },
+  {
+    path: `/logtime`,
+    icon: <ClockCircleOutlined />,
+    label: `Log Time`,
+  },
   // {
   //   path: `/project`,
   //   icon: <ProjectOutlined />,

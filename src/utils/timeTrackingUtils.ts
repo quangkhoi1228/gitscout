@@ -9,6 +9,7 @@ import TimeTrackingResponse, {
   TimeTrackingDataItem,
 } from 'types/TimeTrackingResponse';
 import { WorkspaceDataType } from 'types/WorkspaceDataType';
+import { getFormatDate } from './utils';
 
 export function getAllWorkspace(callback: Function) {
   useApi.get('/companies/', {
@@ -210,30 +211,42 @@ export function getLogTimeTracking(
   getLogTimeTrackingCallback: Function
 ) {
   function getLogTimeTrackingByPage(page: number, callback: Function) {
-    useApi.get('/time-trackings/', {
-      authen: true,
-      params: {
-        company_slug: 'stalk',
-        project_slug: 's-talk-website',
-        users: '',
-        start:
-          request.dateRange.length > 0
-            ? new Date(request.dateRange[0]).toISOString().split('T')[0] +
-              ' 00:00:00'
-            : '',
-        end:
-          request.dateRange.length > 0
-            ? new Date(request.dateRange[1]).toISOString().split('T')[0] +
-              ' 23:59:00'
-            : '',
-        page: page,
-      },
-      onSuccess: (res: any) => {
-        callback(res);
+    useApi.get(
+      `/time-trackings/?start=${getFormatDate(
+        request.dateRange[0],
+        'yyyy-MM-dd'
+      )}%2000:00:00&end=${getFormatDate(
+        request.dateRange[1],
+        'yyyy-MM-dd'
+      )}%2023:59:59`,
+      {
+        authen: true,
 
-        // process_wb(wb);
-      },
-    });
+        params: {
+          company_slug: 'stalk',
+          project_slug: 's-talk-website',
+          page: page,
+          users: '',
+          // start:
+          //   request.dateRange.length > 0
+          //     ? `${
+          //         new Date(request.dateRange[0]).toISOString().split('T')[0]
+          //       } 00:00:00`
+          //     : '',
+          // end:
+          //   request.dateRange.length > 0
+          //     ? `${
+          //         new Date(request.dateRange[1]).toISOString().split('T')[0]
+          //       } 23:59:00`
+          //     : '',
+        },
+        onSuccess: (res: any) => {
+          callback(res);
+
+          // process_wb(wb);
+        },
+      }
+    );
   }
 
   getLogTimeTrackingByPage(1, (res: LogTimeTrackingDataType) => {
@@ -268,7 +281,6 @@ export function getLogTimeTrackingByUser(data: LogTimeTrackingItemDataType[]) {
   const result: LogTimeTrackingByUserDataType = {};
   data.forEach((item) => {
     const time = item.time.end.timestamp - item.time.start.timestamp;
-    console.log(time);
 
     if (!Object.keys(result).includes(item.user.username)) {
       result[item.user.username] = {
