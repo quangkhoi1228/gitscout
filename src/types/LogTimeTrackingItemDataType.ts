@@ -1,4 +1,3 @@
-
 export interface LogTimeTrackingItemDataType {
   comment: string;
   time: {

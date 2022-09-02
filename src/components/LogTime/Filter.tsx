@@ -1,39 +1,32 @@
 import { Button, Card, DatePicker, Form, Radio, Space } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLogTimeTrackingData } from 'redux/reducer/logTimeTrackingReducer';
-import { setTimeTrackingLoading } from 'redux/reducer/timeTrackingReducer';
-import { RootState } from 'redux/store';
 import { LogTimeTrackingItemDataType } from 'types/LogTimeTrackingItemDataType';
 import { getLogTimeTracking } from 'utils/timeTrackingUtils';
 import { getMondayOfCurrentWeek, getSundayOfCurrentWeek } from 'utils/utils';
 
 const Filter = () => {
+  const [loading, setLoading] = useState(false);
   const { RangePicker } = DatePicker;
 
   const dispatch = useDispatch();
 
   const [timeRange, setTimeRange] = useState<string>('month');
 
-  const { timeTracking } = useSelector((state: RootState) => {
-    return {
-      workspace: state.workspace.value,
-      timeTracking: state.timeTracking.value,
-    };
-  });
-
   const [form] = Form.useForm();
   const dateFormat = 'YYYY-MM-DD';
 
   const getTimeTrackingByFilter = () => {
-    dispatch(setTimeTrackingLoading(true));
+    setLoading(true);
     const request = form.getFieldsValue();
     console.log(request);
     request['workspace'] = 'stalk';
 
     getLogTimeTracking(request, (data: LogTimeTrackingItemDataType[]) => {
       dispatch(setLogTimeTrackingData(data));
+      setLoading(false);
     });
   };
 
@@ -114,11 +107,7 @@ const Filter = () => {
               />
             </Form.Item>
             <Form.Item style={{ alignItems: 'end' }}>
-              <Button
-                type='primary'
-                htmlType='submit'
-                loading={timeTracking?.loading}
-              >
+              <Button type='primary' htmlType='submit' loading={loading}>
                 Xem
               </Button>
             </Form.Item>

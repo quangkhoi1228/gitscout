@@ -210,6 +210,7 @@ export function getLogTimeTracking(
   request: Json,
   getLogTimeTrackingCallback: Function
 ) {
+ 
   function getLogTimeTrackingByPage(page: number, callback: Function) {
     useApi.get(
       `/time-trackings/?start=${getFormatDate(
