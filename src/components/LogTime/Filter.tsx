@@ -40,11 +40,11 @@ const Filter = () => {
         break;
       case 'yesterday':
         let start = moment(
-          new Date().setDate(new Date().getDate() - 1),
+          new Date(new Date().setDate(new Date().getDate() - 1)),
           dateFormat
         );
         let end = moment(
-          new Date().setDate(new Date().getDate() - 1),
+          new Date(new Date().setDate(new Date().getDate() - 1)),
           dateFormat
         );
         dateRange = [start, end];
