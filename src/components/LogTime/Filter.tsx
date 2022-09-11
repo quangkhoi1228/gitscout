@@ -38,8 +38,19 @@ const Filter = () => {
       case 'today':
         dateRange = [moment(date, dateFormat), moment(date, dateFormat)];
         break;
+      case 'yesterday':
+        let start = moment(
+          new Date().setDate(new Date().getDate() - 1),
+          dateFormat
+        );
+        let end = moment(
+          new Date().setDate(new Date().getDate() - 2),
+          dateFormat
+        );
+        dateRange = [start, end];
+        break;
       case 'month':
-        let start =
+        start =
           date.getDate() > 25
             ? moment(
                 new Date(date.getFullYear(), date.getMonth(), 26),
@@ -50,7 +61,7 @@ const Filter = () => {
                 dateFormat
               );
 
-        let end =
+        end =
           date.getDate() > 25
             ? moment(
                 new Date(date.getFullYear(), date.getMonth() + 1, 25),
@@ -93,6 +104,7 @@ const Filter = () => {
                 onChange={(e) => setTimeRange(e.target.value)}
               >
                 <Radio.Button value='today'>Hôm nay</Radio.Button>
+                <Radio.Button value='yesterday'>Hôm nay</Radio.Button>
                 <Radio.Button value='week'>Tuần này</Radio.Button>
                 <Radio.Button value='month'>Tháng này</Radio.Button>
                 <Radio.Button value='custom'>Tuỳ chỉnh</Radio.Button>
