@@ -104,7 +104,7 @@ const Filter = () => {
                 onChange={(e) => setTimeRange(e.target.value)}
               >
                 <Radio.Button value='today'>Hôm nay</Radio.Button>
-                <Radio.Button value='yesterday'>Hôm nay</Radio.Button>
+                <Radio.Button value='yesterday'>Hôm qua</Radio.Button>
                 <Radio.Button value='week'>Tuần này</Radio.Button>
                 <Radio.Button value='month'>Tháng này</Radio.Button>
                 <Radio.Button value='custom'>Tuỳ chỉnh</Radio.Button>
