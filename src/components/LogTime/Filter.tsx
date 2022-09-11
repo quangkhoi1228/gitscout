@@ -44,7 +44,7 @@ const Filter = () => {
           dateFormat
         );
         let end = moment(
-          new Date().setDate(new Date().getDate() - 2),
+          new Date().setDate(new Date().getDate() - 1),
           dateFormat
         );
         dateRange = [start, end];
