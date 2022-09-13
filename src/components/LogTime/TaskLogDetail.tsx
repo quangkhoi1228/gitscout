@@ -18,17 +18,24 @@ const TaskLogDetail = () => {
 
   return (
     <div className='time-tracking-member-list'>
-      {logTimeTracking.map((item) => (
-        <div className='log-time-tracking-item'>
-          <Card size='small'>
-            <Meta
-              avatar={<Avatar src={item.user.avatar} />}
-              title={item.task.title}
-              description={`${item.time.total} - ${item.comment}`}
-            />
-          </Card>
-        </div>
-      ))}
+      {logTimeTracking.map((item) => {
+        const time = item.time.end.timestamp - item.time.start.timestamp;
+        const point = Math.round(
+          (time / 3600) * Number(item.task.effort.effort)
+        );
+
+        return (
+          <div className='log-time-tracking-item' key={item.time.id}>
+            <Card size='small'>
+              <Meta
+                avatar={<Avatar src={item.user.avatar} />}
+                title={item.task.title}
+                description={`${item.time.total} (${point}) - ${item.comment}`}
+              />
+            </Card>
+          </div>
+        );
+      })}
     </div>
   );
 };

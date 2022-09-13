@@ -32,6 +32,8 @@ const Filter = () => {
 
   useEffect(() => {
     let dateRange;
+    let start;
+    let end;
     const date = new Date();
 
     switch (timeRange) {
@@ -39,11 +41,11 @@ const Filter = () => {
         dateRange = [moment(date, dateFormat), moment(date, dateFormat)];
         break;
       case 'yesterday':
-        let start = moment(
+        start = moment(
           new Date(new Date().setDate(new Date().getDate() - 1)),
           dateFormat
         );
-        let end = moment(
+        end = moment(
           new Date(new Date().setDate(new Date().getDate() - 1)),
           dateFormat
         );
